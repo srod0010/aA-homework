@@ -33,7 +33,17 @@ class Play
   end
 
   def self.find_by_playwright(name)
-    
+    person = PlayDBConnection.instance.execute(<<-SQL,name)
+
+    SELECT
+      *
+    FROM
+      playwrights
+    WHERE
+      name = ?
+    SQL
+
+    Playwright.new(person.first)
   end
 
   def initialize(options)
@@ -65,4 +75,17 @@ class Play
         id = ?
     SQL
   end
+end
+
+
+class Playwright
+  attr_accessor :name, :birth_year
+  attr_reader :id
+
+  def self.all
+    data = PlayDBConnection.instance.execute("SELECT * FROM playwrights")
+    data.map { |datum| Playwright.new(datum) }
+  end
+
+  
 end
