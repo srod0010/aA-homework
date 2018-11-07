@@ -1,0 +1,13 @@
+pry
+
+- require './filename.rb'  #path
+- Play.all
+- ORM - lets us interact with database without having to wrtie SQL code
+- ex. salesman = Play.new("title" => 'death of a salesman', "year" => 1948, playwright_id => 1)
+- salesman.create #adds it to our database
+- Play.all => return salesman you just added
+
+Update an entry
+- salesman.year = 1949
+- * changed instance but has not yet updated
+- salesman.update => updates in database
